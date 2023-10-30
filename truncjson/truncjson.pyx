@@ -42,7 +42,7 @@ cdef list get_expects(str trunc, list expects=[], char last_char=0):
             last_char = 0
         else:
             last_char = ch
-            if ch == ' ':
+            if ch in [' ', '\n', '\t', '\r']:
                 continue
             elif ch == '{':
                 if len(new_expects) > 0:

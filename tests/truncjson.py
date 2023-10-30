@@ -151,6 +151,9 @@ class TestTruncjson(unittest.TestCase):
     def test_complete_function_case_47(self) -> None:
         assert complete('{"k1":"v1","k2":["v21","v22') == '{"k1":"v1","k2":["v21","v22"]}'
 
+    def test_complete_function_case_48(self) -> None:
+        assert complete('{"k1":"v1","k2":[{"k21":"v21"},{"k22":"v22"},\n') == '{"k1":"v1","k2":[{"k21":"v21"},{"k22":"v22"},\nnull]}'
+
 
 if __name__ == '__main__':
     unittest.main()
