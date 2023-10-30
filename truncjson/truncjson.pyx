@@ -68,6 +68,8 @@ cdef list get_expects(str trunc, list expects=[], char last_char=0):
                 elif new_expects[-1] == Expect.VALUE:
                     new_expects.pop()
                     new_expects.append(Expect.DOUBLE_QUOTATION)
+                elif new_expects[-1] == Expect.SQUARE_BRACKET:
+                    new_expects.append(Expect.DOUBLE_QUOTATION)
                 else:
                     new_expects.append(Expect.VALUE)
                     new_expects.append(Expect.COLON)
