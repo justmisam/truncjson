@@ -1,32 +1,47 @@
-from typing import List
+from cpython.list cimport PyList_New
 from enum import Enum
 
 
-class Expect(Enum):
-    CURLY_BRACKET = '}'
-    SQUARE_BRACKET = ']'
-    DOUBLE_QUOTATION = '"'
-    COLON = ':'
-    VALUE = 'null'
-    R = 'r'
-    U = 'u'
-    E = 'e'
-    A = 'a'
-    L = 'l'
-    S = 's'
+cdef enum Expect:
+    CURLY_BRACKET
+    SQUARE_BRACKET
+    DOUBLE_QUOTATION
+    COLON
+    VALUE
+    R
+    U
+    E
+    A
+    L
+    S
 
 
-def expect_to_completion(expect: Expect) -> str:
-    return expect.value
+cdef dict EXPECT_VALUES = {
+    CURLY_BRACKET: '}',
+    SQUARE_BRACKET: ']',
+    DOUBLE_QUOTATION: '"',
+    COLON: ':',
+    VALUE: 'null',
+    R: 'r',
+    U: 'u',
+    E: 'e',
+    A: 'a',
+    L: 'l',
+    S: 's'
+}
+
+cdef str expect_to_completion(Expect expect):
+    return EXPECT_VALUES[expect]
 
 
-def get_expects(trunc: str, expects: List[Expect] = [], last_char: int = 0) -> List[Expect]:
-    new_expects = list(expects)
-    for ch in trunc:
-        if last_char == ord('\\'):
+cdef list get_expects(str trunc, list expects=[], char last_char=0):
+    cdef list new_expects = list(expects)
+    cdef char ch
+    for ch in [ord(c) for c in trunc]:
+        if last_char == '\\':
             last_char = 0
         else:
-            last_char = ord(ch)
+            last_char = ch
             if ch == '{':
                 if len(new_expects) > 0:
                     if new_expects[-1] == Expect.VALUE:
@@ -67,12 +82,12 @@ def get_expects(trunc: str, expects: List[Expect] = [], last_char: int = 0) -> L
                     new_expects.append(Expect.E)
                     new_expects.append(Expect.U)
                     new_expects.append(Expect.R)
-                if ch == 'f':
+                elif ch == 'f':
                     new_expects.append(Expect.E)
                     new_expects.append(Expect.S)
                     new_expects.append(Expect.L)
                     new_expects.append(Expect.A)
-                if ch == 'n':
+                elif ch == 'n':
                     new_expects.append(Expect.L)
                     new_expects.append(Expect.L)
                     new_expects.append(Expect.U)
@@ -81,9 +96,9 @@ def get_expects(trunc: str, expects: List[Expect] = [], last_char: int = 0) -> L
     return new_expects
 
 
-def get_completion(expects: List[Expect] = []) -> str:
+cdef str get_completion(list expects=[]):
     return ''.join(map(expect_to_completion, reversed(expects)))
 
 
-def complete(trunc: str) -> str:
+cpdef str complete(str trunc):
     return trunc + get_completion(get_expects(trunc))

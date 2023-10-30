@@ -1,8 +1,7 @@
-from typing import List
 import json
 import time
-from .truncjson import complete
-from .Stream import Stream
+from . import complete
+from . import Stream
 
 
 if __name__ == '__main__':

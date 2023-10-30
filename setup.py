@@ -31,5 +31,7 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers'
     ],
-    packages=['truncjson']
+    packages=['truncjson'],
+    ext_modules=cythonize('truncjson/*.pyx'),
+    zip_safe=False
 )
