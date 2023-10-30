@@ -1,0 +1,2 @@
+# truncjson
+Truncated JSON completer
