@@ -1,7 +1,7 @@
 import json
 import time
-from . import complete
-from . import Stream
+from truncjson import complete
+from truncjson import Stream
 
 
 if __name__ == '__main__':
