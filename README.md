@@ -3,7 +3,7 @@ Truncated JSON completer
 
 # Usage
 
-```
+```python
 from truncjson import complete
 
 complete('{"k1":"v1","k2":20.5,"k3":[12')
