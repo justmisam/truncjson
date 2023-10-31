@@ -23,6 +23,7 @@ jobs:
       run: |
         mypy truncjson tests 
   test:
+    needs: type-check
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository
@@ -40,7 +41,7 @@ jobs:
       run: |
         python -m tests
   deploy:
-    if: github.event_name == 'release' && github.event.action == 'published'
+    needs: test
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository
