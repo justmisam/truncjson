@@ -34,5 +34,6 @@ setup(
     ],
     packages=['truncjson'],
     ext_modules=cythonize('truncjson/*.pyx'),
-    zip_safe=False
+    zip_safe=False,
+    setup_requires=['cython']
 )
