@@ -30,10 +30,10 @@ class TestStream(unittest.TestCase):
             ['{"k1":"v1","k2":20.5,"k3":[12,34,"56",true]}'],
             ['{"k1":"v1","k2":20.5,"k3":[12,34,"56",true,{"k31":"v31","k32":false,"k33":null}]}'],
             ['{"k1":"v1","k2":20.5,"k3":[12,34,"56",true,{"k31":"v31","k32":false,"k33":null}]}'],
-            ['{"k":null}'],
-            ['{"key":1.0}'],
-            ['{"key":1.12}', '{"a":null}'],
-            ['{"ab":"cd"}']
+            ['{"k1":"v1","k2":20.5,"k3":[12,34,"56",true,{"k31":"v31","k32":false,"k33":null}]}', '{"k":null}'],
+            ['{"k1":"v1","k2":20.5,"k3":[12,34,"56",true,{"k31":"v31","k32":false,"k33":null}]}', '{"key":1.0}'],
+            ['{"k1":"v1","k2":20.5,"k3":[12,34,"56",true,{"k31":"v31","k32":false,"k33":null}]}', '{"key":1.12}', '{"a":null}'],
+            ['{"k1":"v1","k2":20.5,"k3":[12,34,"56",true,{"k31":"v31","k32":false,"k33":null}]}', '{"key":1.12}', '{"ab":"cd"}']
         ]
         for i in range(len(chunks)):
             extracted_objs = stream.extract(chunks[i])
