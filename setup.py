@@ -19,6 +19,7 @@ setup(
     version=version,
     description='Truncated JSON completer',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     author='Misam saki',
     author_email='justmisam@gmail.com',
     url='https://github.com/justmisam/truncjson',
