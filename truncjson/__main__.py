@@ -14,7 +14,7 @@ if __name__ == '__main__':
     ]
     stream = Stream()
     for chunk in chunks:
-        print(json.loads(stream.complete(chunk)))
+        print(json.loads(stream.extract(chunk)[0]))
 
     repeats = 100000
     test_case = '{"k1":"v1","k2":20.5,"k3":[12'

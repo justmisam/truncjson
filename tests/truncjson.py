@@ -154,6 +154,33 @@ class TestTruncjson(unittest.TestCase):
     def test_complete_function_case_48(self) -> None:
         assert complete('{"k1":"v1","k2":[{"k21":"v21"},{"k22":"v22"},\n') == '{"k1":"v1","k2":[{"k21":"v21"},{"k22":"v22"},\nnull]}'
 
+    def test_complete_function_case_49(self) -> None:
+        assert complete('{"k1":12.') == '{"k1":12.0}'
+
+    def test_complete_function_case_50(self) -> None:
+        assert complete('{"k1":"v1{') == '{"k1":"v1{"}'
+    
+    def test_complete_function_case_51(self) -> None:
+        assert complete('{"k1":"v1[') == '{"k1":"v1["}'
+
+    def test_complete_function_case_52(self) -> None:
+        assert complete('{"k1":"v1,') == '{"k1":"v1,"}'
+    
+    def test_complete_function_case_53(self) -> None:
+        assert complete('{"k1":"v1\\"') == '{"k1":"v1\\""}'
+    
+    def test_complete_function_case_54(self) -> None:
+        assert complete('{"k1":"v1.') == '{"k1":"v1."}'
+
+    def test_complete_function_case_55(self) -> None:
+        assert complete('{"k1":"v1:') == '{"k1":"v1:"}'
+
+    def test_complete_function_case_56(self) -> None:
+        assert complete('{"k1":"v1]') == '{"k1":"v1]"}'
+
+    def test_complete_function_case_57(self) -> None:
+        assert complete('{"k1":"v1}') == '{"k1":"v1}"}'
+
 
 if __name__ == '__main__':
     unittest.main()
