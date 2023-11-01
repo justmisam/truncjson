@@ -1,0 +1,3 @@
+recursive-include truncjson *.pyx
+recursive-include truncjson *.pyd
+recursive-include truncjson *.pyi
