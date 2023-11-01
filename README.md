@@ -2,6 +2,12 @@
 
 A library to complete truncated JSON strings.
 
+## Install
+
+```sh
+pip install truncjson
+```
+
 ## Use Cases
 1. When you possess a JSON file that is truncated, and you wish to parse its current content.
 2. When you are receiving JSON content as a stream from services like ChatGPT. This allows you to parse the JSON content each time you receive a new chunk.
