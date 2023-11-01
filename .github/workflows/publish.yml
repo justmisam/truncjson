@@ -67,33 +67,3 @@ jobs:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
       run: twine upload wheelhouse/*.whl
-  deploy-linux:
-    needs: test
-    runs-on: ubuntu-latest
-    container:
-      image: quay.io/pypa/manylinux2014_x86_64:latest
-    steps:
-    - name: Check out repository
-      uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    - name: Install dependencies
-      run: |
-        /opt/python/cp38-cp38/bin/pip install --upgrade pip
-        /opt/python/cp38-cp38/bin/pip install setuptools wheel twine auditwheel cython
-    - name: Build wheel
-      run: |
-        /opt/python/cp38-cp38/bin/python setup.py bdist_wheel
-        /opt/python/cp38-cp38/bin/python setup.py sdist
-    - name: Repair wheel
-      run: |
-        auditwheel repair --plat manylinux2014_x86_64 -w dist/ dist/*.whl
-    - name: Publish to PyPI
-      env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
-      run: |
-        /opt/python/cp38-cp38/bin/twine upload dist/*manylinux2014_x86_64.whl
-        /opt/python/cp38-cp38/bin/twine upload dist/*.tar.gz
