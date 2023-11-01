@@ -58,9 +58,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools wheel twine cython
     - name: Build wheel
-      run: |
-        python setup.py bdist_wheel
-        python setup.py sdist
+      run: python setup.py bdist_wheel
     - name: Publish to PyPI
       env:
         TWINE_USERNAME: __token__
@@ -85,6 +83,7 @@ jobs:
     - name: Build wheel
       run: |
         /opt/python/cp38-cp38/bin/python setup.py bdist_wheel
+        /opt/python/cp38-cp38/bin/python setup.py sdist
     - name: Repair wheel
       run: |
         auditwheel repair --plat manylinux2014_x86_64 -w dist/ dist/*.whl
@@ -93,4 +92,5 @@ jobs:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
       run: |
-        /opt/python/cp38-cp38/bin/twine upload dist/*
+        /opt/python/cp38-cp38/bin/twine upload dist/*manylinux2014_x86_64.whl
+        /opt/python/cp38-cp38/bin/twine upload dist/*.tar.gz
