@@ -63,8 +63,10 @@ jobs:
         CIBW_BUILD: cp36-* cp37-* cp38-* cp39-* cp310-* cp311-* cp312-*
         CIBW_BEFORE_BUILD: pip install cython
         CIBW_ARCHS_MACOS: auto universal2
+    - name: Build source distribution
+      run: python setup.py sdist
     - name: Publish to PyPI
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
-      run: twine upload wheelhouse/*.whl
+      run: twine upload wheelhouse/*.whl dist/*.tar.gz
