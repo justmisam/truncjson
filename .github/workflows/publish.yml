@@ -40,7 +40,7 @@ jobs:
     - name: Run tests
       run: |
         python -m tests
-  deploy:
+  build:
     needs: test
     runs-on: ${{ matrix.os }}
     strategy:
@@ -65,6 +65,32 @@ jobs:
         CIBW_ARCHS_MACOS: auto universal2
     - name: Build source distribution
       run: python setup.py sdist
+    - name: Upload wheel artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: wheels
+        path: wheelhouse/*.whl
+    - name: Upload sdist artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: sdist
+        path: dist/*.tar.gz
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+    - name: Download wheel artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: wheels
+        path: wheelhouse
+    - name: Download sdist artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: sdist
+        path: dist
     - name: Publish to PyPI
       env:
         TWINE_USERNAME: __token__
